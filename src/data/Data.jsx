@@ -1,5 +1,6 @@
 import uzb from "../assets/img/uzb.png";
 import ksa from "../assets/img/ksa.png";
+import usa from "../assets/img/usa.png";
 import kf from "../assets/img/kf.png";
 import bb from "../assets/img/blackbulls.png";
 import ub from "../assets/img/unblogo.jpg";
@@ -87,16 +88,26 @@ export const footerData = {
 export const matchesData = [
   {
     id: 1,
+    teams: "Unwanted Boys vs USA",
+    score: "2 - 6",
+    date: "2024-03-01",
+    img: uzb,
+    result: "Tugagan",
+    type: "World Media Cup",
+    img2: usa,
+  },
+  {
+    id: 2,
     teams: "Unwanted Boys vs KSA",
-    score: "- -- -",
+    score: "4 - 3",
     date: "2024-01-01",
     img: uzb,
-    result: "Boshlanmagan",
+    result: "Tugagan",
     type: "World Media Cup",
     img2: ksa,
   },
   {
-    id: 2,
+    id: 3,
     teams: "Unwanted Boys vs KF",
     score: "2 - 0",
     date: "2024-11-21",
@@ -106,7 +117,7 @@ export const matchesData = [
     img2: kf,
   },
   {
-    id: 3,
+    id: 4,
     teams: "Unwanted Boys vs Black Bulls",
     score: "1 - 1",
     date: "2024-09-29",
@@ -116,7 +127,7 @@ export const matchesData = [
     img2: bb,
   },
   {
-    id: 4,
+    id: 5,
     teams: "Unwanted Boys vs Black Bulls",
     score: "2 - 0",
     date: "2024-05-12",
@@ -126,7 +137,7 @@ export const matchesData = [
     img2: bb,
   },
   {
-    id: 5,
+    id: 6,
     teams: "Unwanted Boys vs LOKOMOTIV",
     score: "1 - 4",
     date: "2024-06-09",
