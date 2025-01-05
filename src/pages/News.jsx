@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { newsData } from "../data/Data";
@@ -17,6 +17,12 @@ const SectionHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `;
 
 const Title = styled.h2`
@@ -27,18 +33,29 @@ const Title = styled.h2`
   span {
     color: ${({ theme }) => theme.accent};
   }
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 
-const ViewAll = styled.a`
+const ViewAll = styled.button`
   color: ${({ theme }) => theme.accent};
   font-size: 1.6rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
 
   &:hover {
     color: ${({ theme }) => theme.secondary};
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
   }
 `;
 
@@ -47,20 +64,29 @@ const ScrollContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  overflow: ${({ showAll }) => (showAll ? "visible" : "hidden")};
 `;
 
 const NewsGrid = styled.div`
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 300px;
+  grid-auto-flow: ${({ showAll }) => (showAll ? "row" : "column")};
+  grid-template-columns: ${({ showAll }) =>
+    showAll ? "repeat(auto-fill, minmax(300px, 1fr))" : "none"};
+  grid-auto-columns: ${({ showAll }) => (showAll ? "none" : "300px")};
   gap: 2rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  overflow-x: ${({ showAll }) => (showAll ? "visible" : "auto")};
+  scroll-snap-type: ${({ showAll }) => (showAll ? "none" : "x mandatory")};
   padding: 1rem;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    overflow-x: visible;
   }
 `;
 
@@ -79,6 +105,10 @@ const NewsCard = styled.a`
     img {
       transform: scale(1.05);
     }
+  }
+
+  @media (max-width: 768px) {
+    height: 300px;
   }
 `;
 
@@ -108,12 +138,20 @@ const NewsDate = styled.div`
   font-size: 1.4rem;
   opacity: 0.8;
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const NewsTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const NewsExcerpt = styled.p`
@@ -123,6 +161,10 @@ const NewsExcerpt = styled.p`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const ScrollButton = styled.button`
@@ -159,7 +201,25 @@ const ScrollButton = styled.button`
 `;
 
 function News() {
-  const scrollContainerRef = React.useRef(null);
+  const [showAll, setShowAll] = useState(false);
+  const scrollContainerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth <= 768) {
+        setShowAll(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const scroll = (direction) => {
     const container = scrollContainerRef.current;
@@ -175,17 +235,25 @@ function News() {
         <Title>
           So'nggi <span>yangiliklar</span>
         </Title>
-        <ViewAll href="#">
-          Barchasini ko'rish
-          <FaChevronRight />
-        </ViewAll>
+        {!isMobile && (
+          <ViewAll onClick={() => setShowAll(!showAll)}>
+            {showAll ? "Kamroq ko'rish" : "Barchasini ko'rish"}
+            {showAll ? <FaChevronLeft /> : <FaChevronRight />}
+          </ViewAll>
+        )}
       </SectionHeader>
-      <ScrollContainer>
-        <ScrollButton className="prev" onClick={() => scroll("left")}>
-          <FaChevronLeft />
-        </ScrollButton>
-
-        <NewsGrid ref={scrollContainerRef}>
+      <ScrollContainer showAll={showAll}>
+        {!showAll && !isMobile && (
+          <>
+            <ScrollButton className="prev" onClick={() => scroll("left")}>
+              <FaChevronLeft />
+            </ScrollButton>
+            <ScrollButton className="next" onClick={() => scroll("right")}>
+              <FaChevronRight />
+            </ScrollButton>
+          </>
+        )}
+        <NewsGrid ref={scrollContainerRef} showAll={showAll || isMobile}>
           {newsData.map((news, index) => (
             <NewsCard key={index} target="blank" href={news.url}>
               <NewsImage src={news.image} alt={news.title} />
@@ -197,10 +265,6 @@ function News() {
             </NewsCard>
           ))}
         </NewsGrid>
-
-        <ScrollButton className="next" onClick={() => scroll("right")}>
-          <FaChevronRight />
-        </ScrollButton>
       </ScrollContainer>
     </PageContainer>
   );

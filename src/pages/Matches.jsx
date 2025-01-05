@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { matchesData } from "../data/Data";
@@ -17,6 +17,12 @@ const SectionHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `;
 
 const Title = styled.h2`
@@ -28,6 +34,10 @@ const Title = styled.h2`
 
   span {
     color: #ffa726;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
   }
 `;
 
@@ -61,9 +71,9 @@ const MatchesGrid = styled.div`
   display: grid;
   grid-template-rows: ${({ showAll }) => (showAll ? "auto" : "repeat(2, 1fr)")};
   grid-template-columns: ${({ showAll }) =>
-    showAll ? "repeat(auto-fill, minmax(380px, 1fr))" : "none"};
+    showAll ? "repeat(auto-fill, minmax(300px, 1fr))" : "none"};
   grid-auto-flow: ${({ showAll }) => (showAll ? "row" : "column")};
-  grid-auto-columns: ${({ showAll }) => (showAll ? "none" : "380px")};
+  grid-auto-columns: ${({ showAll }) => (showAll ? "none" : "300px")};
   gap: 1.5rem;
   overflow-x: ${({ showAll }) => (showAll ? "visible" : "auto")};
   overflow-y: ${({ showAll }) => (showAll ? "visible" : "hidden")};
@@ -76,6 +86,19 @@ const MatchesGrid = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 1024px) {
+    grid-auto-columns: ${({ showAll }) => (showAll ? "none" : "280px")};
+    height: ${({ showAll }) => (showAll ? "auto" : "650px")};
+  }
+
+  @media (max-width: 768px) {
+    grid-template-rows: auto;
+    grid-auto-flow: row;
+    height: auto;
+    overflow-x: visible;
+    grid-template-columns: 1fr;
+  }
 `;
 
 const MatchCard = styled.div`
@@ -87,6 +110,11 @@ const MatchCard = styled.div`
   display: flex;
   flex-direction: column;
   height: 320px;
+
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 280px;
+  }
 `;
 
 const CompetitionHeader = styled.div`
@@ -116,6 +144,16 @@ const Teams = styled.div`
   align-items: center;
   margin-bottom: 2rem;
   flex: 1;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 const Team = styled.div`
@@ -128,8 +166,19 @@ const Team = styled.div`
 
 const TeamLogo = styled.img`
   width: 80px;
+  border-radius: 50%;
   height: 80px;
   object-fit: contain;
+
+  @media (max-width: 768px) {
+    width: 60px;
+    height: 60px;
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 const TeamName = styled.div`
@@ -144,6 +193,16 @@ const Score = styled.div`
   font-weight: 700;
   color: #ffffff;
   padding: 0 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+    padding: 0.5rem 0;
+  }
 `;
 
 const MatchDate = styled.div`
@@ -187,16 +246,37 @@ const ScrollButton = styled.button`
     width: 20px;
     height: 20px;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 function Matches() {
   const [showAll, setShowAll] = useState(false);
   const scrollContainerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth <= 768) {
+        setShowAll(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const scroll = (direction) => {
     const container = scrollContainerRef.current;
     if (container) {
-      const scrollAmount = direction === "left" ? -780 : 780; // Two cards width + gap
+      const scrollAmount = direction === "left" ? -620 : 620;
       container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
@@ -207,14 +287,16 @@ function Matches() {
         <Title>
           O'yinlar <span>jadvali</span>
         </Title>
-        <ViewAll onClick={() => setShowAll(!showAll)}>
-          {showAll ? "Kamroq ko'rish" : "Barchasini ko'rish"}
-          {showAll ? <FaChevronLeft /> : <FaChevronRight />}
-        </ViewAll>
+        {!isMobile && (
+          <ViewAll onClick={() => setShowAll(!showAll)}>
+            {showAll ? "Kamroq ko'rish" : "Barchasini ko'rish"}
+            {showAll ? <FaChevronLeft /> : <FaChevronRight />}
+          </ViewAll>
+        )}
       </SectionHeader>
 
       <ScrollContainer showAll={showAll}>
-        {!showAll && (
+        {!showAll && !isMobile && (
           <>
             <ScrollButton className="prev" onClick={() => scroll("left")}>
               <FaChevronLeft />
@@ -224,13 +306,13 @@ function Matches() {
             </ScrollButton>
           </>
         )}
-        <MatchesGrid ref={scrollContainerRef} showAll={showAll}>
+        <MatchesGrid ref={scrollContainerRef} showAll={showAll || isMobile}>
           {matchesData &&
             matchesData.map((match, index) => (
               <MatchCard key={index}>
                 <CompetitionHeader>
                   <CompetitionName>{match.type}</CompetitionName>
-                  <MatchStatus>TUGAGAN</MatchStatus>
+                  <MatchStatus>{match.result}</MatchStatus>
                 </CompetitionHeader>
 
                 <Teams>
