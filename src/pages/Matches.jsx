@@ -2,12 +2,105 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { matchesData } from "../data/Data";
+import Cracker from "../components/Cracker";
 
 const PageContainer = styled.div`
   background-color: ${({ theme }) => theme.background};
   min-height: 100vh;
   padding: 4rem 0;
 `;
+
+// ! Time Coinainer
+
+const TimerContainer = styled.div`
+  text-align: center;
+  margin: 2rem auto 3rem;
+  max-width: 600px;
+  padding: 0 1rem;
+`;
+
+const NextMatchText = styled.div`
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: ${({ theme }) => (theme.mode === "dark" ? "#ffffff" : "#333333")};
+  letter-spacing: 2px;
+`;
+
+const TimerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  @media (max-width: 480px) {
+    gap: 0.25rem;
+  }
+`;
+
+const TimeUnit = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+
+  @media (max-width: 480px) {
+    min-width: 70px;
+  }
+`;
+
+const Number = styled.div`
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  background: ${({ type }) => {
+    switch (type) {
+      case "days":
+        return "linear-gradient(135deg, #ff0844 0%, #a50044 100%)";
+      case "hours":
+      case "minutes":
+        return "linear-gradient(135deg, #a50044 0%, #6b0054 100%)";
+      case "seconds":
+        return "linear-gradient(135deg, #6b0054 0%, #002766 100%)";
+      default:
+        return "#a50044";
+    }
+  }};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
+`;
+
+const Separator = styled.div`
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: ${({ theme }) => (theme.mode === "dark" ? "#ffffff40" : "#33333340")};
+  margin-top: 0;
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
+`;
+
+const Label = styled.div`
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  color: ${({ theme }) => (theme.mode === "dark" ? "#ffffff80" : "#33333380")};
+  letter-spacing: 1px;
+
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
+`;
+
+// ! Other Coinainers
 
 const SectionHeader = styled.div`
   max-width: 1200px;
@@ -256,6 +349,14 @@ function Matches() {
   const [showAll, setShowAll] = useState(false);
   const scrollContainerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [timeUntilNextMatch, setTimeUntilNextMatch] = useState({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+    seconds: "00",
+  });
+
+  const [showCracker, setShowCracker] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -268,8 +369,33 @@ function Matches() {
     handleResize();
     window.addEventListener("resize", handleResize);
 
+    // Timer logic
+    const updateTimer = () => {
+      const now = new Date();
+      const nextMatch = new Date("2025-01-07T22:00:00");
+      const difference = nextMatch - now;
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeUntilNextMatch({
+        days: String(days).padStart(2, "0"),
+        hours: String(hours).padStart(2, "0"),
+        minutes: String(minutes).padStart(2, "0"),
+        seconds: String(seconds).padStart(2, "0"),
+      });
+    };
+
+    const timer = setInterval(updateTimer, 1000);
+    updateTimer();
+
     return () => {
       window.removeEventListener("resize", handleResize);
+      clearInterval(timer);
     };
   }, []);
 
@@ -280,9 +406,34 @@ function Matches() {
       container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
-
   return (
     <PageContainer>
+      {showCracker && <Cracker />}
+      <TimerContainer>
+        <NextMatchText>Next Match</NextMatchText>
+        <TimerWrapper>
+          <TimeUnit>
+            <Number type="days">{timeUntilNextMatch.days}</Number>
+            <Label>Days</Label>
+          </TimeUnit>
+          <Separator>:</Separator>
+          <TimeUnit>
+            <Number type="hours">{timeUntilNextMatch.hours}</Number>
+            <Label>Hours</Label>
+          </TimeUnit>
+          <Separator>:</Separator>
+          <TimeUnit>
+            <Number type="minutes">{timeUntilNextMatch.minutes}</Number>
+            <Label>Mins</Label>
+          </TimeUnit>
+          <Separator>:</Separator>
+          <TimeUnit>
+            <Number type="seconds">{timeUntilNextMatch.seconds}</Number>
+            <Label>Secs</Label>
+          </TimeUnit>
+        </TimerWrapper>
+      </TimerContainer>
+
       <SectionHeader>
         <Title>
           O'yinlar <span>jadvali</span>
