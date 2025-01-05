@@ -99,7 +99,7 @@ function Players() {
         <PlayerCard key={player.id}>
           <img src={player.image} alt={`${player.name}`} />
           <PlayerName>{player.name}</PlayerName>
-          <PlayerInfo>Pozitsiya: {player.position}</PlayerInfo>
+          <PlayerInfo>Instagram: {player.position}</PlayerInfo>
           <PlayerInfo>Raqam: {player.number}</PlayerInfo>
           <SocialOverlay className="socialOverlay">
             Follow on{" "}
