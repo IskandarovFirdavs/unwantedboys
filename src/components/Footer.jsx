@@ -70,9 +70,12 @@ const SocialIcon = styled.a`
 `;
 
 const Copyright = styled.p`
+  color: white !important;
   text-align: center;
   margin-top: 4rem;
   font-size: 1.4rem;
+  position: relative;
+  z-index: 2;
 `;
 
 function Footer() {

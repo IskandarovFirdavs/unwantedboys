@@ -83,7 +83,7 @@ export const footerData = {
     youtube: "https://www.youtube.com/@islomabdujabborov",
   },
   copyright:
-    "© 2024 UNWANTED BOYS. Web-sayt Iskandarov Firdavs tomonidan yaratilgan .",
+    "© 2024 UNWANTED BOYS. Web-sayt Iskandarov Firdavs tomonidan yaratilgan . Ushbu sayt muxlis tomonidan ijodga hurmat sifatida yaratilgan. Rasmiy emas va tijoriy maqsadda foydalanilmaydi.",
 };
 
 export const matchesData = [
