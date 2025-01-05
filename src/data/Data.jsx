@@ -5,6 +5,7 @@ import usa from "../assets/img/usa.png";
 import kf from "../assets/img/kf.png";
 import bb from "../assets/img/blackbulls.png";
 import ub from "../assets/img/unblogo.jpg";
+import djo from "../assets/img/djo.jpg";
 import loko from "../assets/img/loko.png";
 import video1 from "../assets/img/video1.jpg";
 import video2 from "../assets/img/video2.jpg";
@@ -91,7 +92,7 @@ export const matchesData = [
     id: 1,
     teams: "Unwanted Boys vs PERU",
     score: "-- - --",
-    date: "2024-01-07",
+    date: "2025-01-07",
     img: uzb,
     result: "Boshlanmagan",
     type: "World Media Cup",
@@ -101,7 +102,7 @@ export const matchesData = [
     id: 2,
     teams: "Unwanted Boys vs USA",
     score: "2 - 6",
-    date: "2024-01-03",
+    date: "2025-01-03",
     img: uzb,
     result: "Tugagan",
     type: "World Media Cup",
@@ -111,7 +112,7 @@ export const matchesData = [
     id: 3,
     teams: "Unwanted Boys vs KSA",
     score: "4 - 3",
-    date: "2024-01-01",
+    date: "2025-01-01",
     img: uzb,
     result: "Tugagan",
     type: "World Media Cup",
@@ -156,6 +157,46 @@ export const matchesData = [
     result: "Tugagan",
     type: "Friendly Match",
     img2: loko,
+  },
+  {
+    id: 8,
+    teams: "Unwanted Boys vs DJO",
+    score: "3 - 1",
+    date: "2023-07-22",
+    img: ub,
+    result: "Tugagan",
+    type: "Friendly Match",
+    img2: djo,
+  },
+  {
+    id: 9,
+    teams: "Unwanted Boys vs DJO",
+    score: "3 - 0",
+    date: "2023-09-22",
+    img: ub,
+    result: "Tugagan",
+    type: "Friendly Match 2",
+    img2: djo,
+  },
+  {
+    id: 10,
+    teams: "Unwanted Boys vs DJO",
+    score: "1 - 0",
+    date: "2024-02-16",
+    img: ub,
+    result: "Tugagan",
+    type: "Friendly Match 3",
+    img2: djo,
+  },
+  {
+    id: 11,
+    teams: "Unwanted Boys vs DJO",
+    score: "1 - 1 (5 - 3)",
+    date: "2024-11-27",
+    img: ub,
+    result: "Tugagan",
+    type: "Friendly Match 4",
+    img2: djo,
   },
 ];
 
