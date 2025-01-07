@@ -372,7 +372,7 @@ function Matches() {
     // Timer logic
     const updateTimer = () => {
       const now = new Date();
-      const nextMatch = new Date("2025-01-07T22:00:00");
+      const nextMatch = new Date("2025-01-08T22:00:00");
       const difference = nextMatch - now;
 
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));

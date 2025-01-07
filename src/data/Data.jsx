@@ -2,6 +2,7 @@ import uzb from "../assets/img/uzb.png";
 import peru from "../assets/img/peru.webp";
 import ksa from "../assets/img/ksa.png";
 import usa from "../assets/img/usa.png";
+import kol from "../assets/img/col.png";
 import kf from "../assets/img/kf.png";
 import bb from "../assets/img/blackbulls.png";
 import ub from "../assets/img/unblogo.jpg";
@@ -90,16 +91,26 @@ export const footerData = {
 export const matchesData = [
   {
     id: 1,
-    teams: "Unwanted Boys vs PERU",
+    teams: "Unwanted Boys vs Kolumbiya",
     score: "-- - --",
-    date: "2025-01-07",
+    date: "2025-01-08",
     img: uzb,
     result: "Boshlanmagan",
+    type: "World Media Cup",
+    img2: kol,
+  },
+  {
+    id: 2,
+    teams: "Unwanted Boys vs PERU",
+    score: "5 - 4",
+    date: "2025-01-07",
+    img: uzb,
+    result: "Tugagan",
     type: "World Media Cup",
     img2: peru,
   },
   {
-    id: 2,
+    id: 3,
     teams: "Unwanted Boys vs USA",
     score: "2 - 6",
     date: "2025-01-03",
@@ -109,7 +120,7 @@ export const matchesData = [
     img2: usa,
   },
   {
-    id: 3,
+    id: 4,
     teams: "Unwanted Boys vs KSA",
     score: "4 - 3",
     date: "2025-01-01",
@@ -119,7 +130,7 @@ export const matchesData = [
     img2: ksa,
   },
   {
-    id: 4,
+    id: 5,
     teams: "Unwanted Boys vs KF",
     score: "2 - 0",
     date: "2024-11-21",
@@ -129,7 +140,7 @@ export const matchesData = [
     img2: kf,
   },
   {
-    id: 5,
+    id: 6,
     teams: "Unwanted Boys vs Black Bulls",
     score: "1 - 1",
     date: "2024-09-29",
@@ -139,7 +150,7 @@ export const matchesData = [
     img2: bb,
   },
   {
-    id: 6,
+    id: 7,
     teams: "Unwanted Boys vs Black Bulls",
     score: "2 - 0",
     date: "2024-05-12",
@@ -149,7 +160,7 @@ export const matchesData = [
     img2: bb,
   },
   {
-    id: 7,
+    id: 8,
     teams: "Unwanted Boys vs LOKOMOTIV",
     score: "1 - 4",
     date: "2024-06-09",
@@ -159,7 +170,7 @@ export const matchesData = [
     img2: loko,
   },
   {
-    id: 8,
+    id: 9,
     teams: "Unwanted Boys vs DJO",
     score: "3 - 1",
     date: "2023-07-22",
@@ -169,7 +180,7 @@ export const matchesData = [
     img2: djo,
   },
   {
-    id: 9,
+    id: 10,
     teams: "Unwanted Boys vs DJO",
     score: "3 - 0",
     date: "2023-09-22",
@@ -179,7 +190,7 @@ export const matchesData = [
     img2: djo,
   },
   {
-    id: 10,
+    id: 11,
     teams: "Unwanted Boys vs DJO",
     score: "1 - 0",
     date: "2024-02-16",
@@ -189,7 +200,7 @@ export const matchesData = [
     img2: djo,
   },
   {
-    id: 11,
+    id: 12,
     teams: "Unwanted Boys vs DJO",
     score: "1 - 1 (5 - 3)",
     date: "2024-11-27",
