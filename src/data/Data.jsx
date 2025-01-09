@@ -98,6 +98,8 @@ export const matchesData = [
     result: "Tugagan",
     type: "World Media Cup",
     img2: kol,
+    scorers: "⚽ Gollar: Javlon Anvarjonov",
+    video: "https://www.youtube.com/live/P_u9gRCfLFE?si=3kS6hxTxoOME3T6v",
   },
   {
     id: 2,
@@ -108,6 +110,9 @@ export const matchesData = [
     result: "Tugagan",
     type: "World Media Cup",
     img2: peru,
+    scorers:
+      "⚽ Gollar:\nShaxriyor Jabborov (2x)\nJAVLON ANVARJONOV\nJASUR TOXTASINOV (2x)",
+    video: "https://www.youtube.com/live/2Mb3ODQCX_Q?si=17IJF_-l2gYODTrF",
   },
   {
     id: 3,
@@ -118,6 +123,8 @@ export const matchesData = [
     result: "Tugagan",
     type: "World Media Cup",
     img2: usa,
+    scorers: "⚽ Gollar:\nShaxriyor Jabborov\nIslom Abdujabborov",
+    video: "https://www.youtube.com/live/mo2nBrvtwWA?si=n6sV8cwepERm1cux",
   },
   {
     id: 4,
@@ -128,6 +135,9 @@ export const matchesData = [
     result: "Tugagan",
     type: "World Media Cup",
     img2: ksa,
+    scorers:
+      "⚽ Gollar:\ngiRadion Yangirov\nShaxriyor Jabborov (2x)\nIslom Abdujabborov",
+    video: "https://www.youtube.com/live/fzJ2OW8cmeE?si=jIeQ2JMQR-m6PdNW",
   },
   {
     id: 5,

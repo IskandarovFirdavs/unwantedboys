@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { matchesData } from "../data/Data";
+import "./Pages.css";
 // import gi from "../components/Cracker";
 
 const PageContainer = styled.div`
@@ -235,7 +236,6 @@ const Teams = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
   flex: 1;
 
   @media (max-width: 768px) {
@@ -345,6 +345,55 @@ const ScrollButton = styled.button`
   }
 `;
 
+const MatchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  background-color: none;
+  border-radius: 8px;
+  max-width: 400px;
+`;
+
+const InsideMatchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+`;
+
+const ScorersList = styled.pre`
+  font-size: 10px;
+  font-family: "Courier New", Courier, monospace;
+  color: #fff;
+  margin: 0;
+  font-weight: 700;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 100px;
+  overflow-y: auto;
+  padding-right: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+  }
+`;
+
 function Matches() {
   const [showAll, setShowAll] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -406,6 +455,7 @@ function Matches() {
       container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
+
   return (
     <PageContainer>
       {/* {showCracker && <Cracker />} */}
@@ -475,7 +525,23 @@ function Matches() {
                     <TeamName>{match.teams.split(" vs ")[1]}</TeamName>
                   </Team>
                 </Teams>
+                {match.video && (
+                  <a href={match.video} target="blank">
+                    <div className="ddynamic-button">
+                      {["T", "O", "M", "O", "SH", "A"].map((letter, index) => (
+                        <div key={index} className="bbox">
+                          {letter}
+                        </div>
+                      ))}
+                    </div>
+                  </a>
+                )}
 
+                <MatchContainer>
+                  <InsideMatchContainer>
+                    <ScorersList>{match.scorers}</ScorersList>
+                  </InsideMatchContainer>
+                </MatchContainer>
                 <MatchDate>{match.date}</MatchDate>
               </MatchCard>
             ))}
