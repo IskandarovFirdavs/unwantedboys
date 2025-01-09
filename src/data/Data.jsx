@@ -92,10 +92,10 @@ export const matchesData = [
   {
     id: 1,
     teams: "Unwanted Boys vs Kolumbiya",
-    score: "-- - --",
+    score: "1 - 6",
     date: "2025-01-08",
     img: uzb,
-    result: "Boshlanmagan",
+    result: "Tugagan",
     type: "World Media Cup",
     img2: kol,
   },
