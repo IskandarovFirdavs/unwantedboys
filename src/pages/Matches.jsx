@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { matchesData } from "../data/Data";
 import "./Pages.css";

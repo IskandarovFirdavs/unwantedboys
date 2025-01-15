@@ -147,7 +147,7 @@ export const matchesData = [
     type: "World Media Cup",
     img2: ksa,
     scorers:
-      "⚽ Gollar:\ngiRadion Yangirov\nShaxriyor Jabborov (2x)\nIslom Abdujabborov",
+      "⚽ Gollar:\nRadion Yangirov\nShaxriyor Jabborov (2x)\nIslom Abdujabborov",
     video: "https://www.youtube.com/live/fzJ2OW8cmeE?si=jIeQ2JMQR-m6PdNW",
   },
   {
